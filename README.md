@@ -1,0 +1,1 @@
+# react-feedsapp-gestures-supported
