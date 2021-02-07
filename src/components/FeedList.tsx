@@ -23,6 +23,9 @@ const useStyles = makeStyles((theme: Theme) =>
     loadingText: {
       textAlign: 'center',
       width: '100%'
+    },
+    container: {
+      overflow: 'hidden !important'
     }
   }),
 );
@@ -54,22 +57,23 @@ const FeedList = () => {
   const classes = useStyles();
 
   return (
-    <Container maxWidth="xs">
+    <Container maxWidth="xs" >
       <div className={classes.root}>     
-          <InfiniteScroll
-            dataLength={state.list.length}
-            next={loadProducts}
-            hasMore={true}
-            loader={<div className={classes.loadingText}>Loading...</div>}
-          >
-            <Grid container spacing={3} className={classes.listContainer}>
-              {state.list.map((val:any,index:number)=>(
-                <Grid key={index} item xs={12}>
-                  <FeedCard {...val}/>
-                </Grid>
-              ))}
-            </Grid>
-          </InfiniteScroll>
+        <InfiniteScroll
+          className={classes.container}
+          dataLength={state.list.length}
+          next={loadProducts}
+          hasMore={true}
+          loader={<div className={classes.loadingText}>Loading...</div>}
+        >
+          <Grid container spacing={3} className={classes.listContainer}>
+            {state.list.map((val:any,index:number)=>(
+              <Grid key={index} item xs={12}>
+                <FeedCard {...val}/>
+              </Grid>
+            ))}
+          </Grid>
+        </InfiniteScroll>
       </div>
     </Container>
   )
