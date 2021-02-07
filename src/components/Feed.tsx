@@ -11,6 +11,7 @@ import Button from '@material-ui/core/Button';
 import DeleteIcon from '@material-ui/icons/Delete';
 import EditIcon from '@material-ui/icons/Edit';
 
+
 import '../assets/styles/animate.css'
 
 import { generateAvatarUrl } from '../utils/icons'
@@ -29,6 +30,8 @@ const useStyles = makeStyles((theme: Theme) =>
       padding: `0px 10px`
     },
     button: {
+      color: '#fff',
+      minWidth: '45px',
       '& .MuiButton-label': {
         writingMode: 'vertical-rl',
         transform: 'scale(-1, -1)'
@@ -39,12 +42,9 @@ const useStyles = makeStyles((theme: Theme) =>
         paddingTop: '6px'
       }
     },
-    slide: {
-      transition: 'all 2s ease' 
-    },
     actions: {
       display: 'flex',
-      padding: '10px'
+      padding: '10px',
     }
   }),
 );
@@ -58,32 +58,23 @@ export default function FeedsCard(props:any) {
     currentTab: 0
   })
 
-  // const onSwipeRight = (position:any, event:any) => {
-  //   const pos = state.currentTab
-  //   console.log('swipe',state.currentTab)
-  //   if(position.x < -100){
-  //     setState(draft => {
-  //       draft.currentTab = pos == 0 ? -1 : 0;
-  //     });
-  //   }
-  //   if(position.x > 100){
-  //     setState(draft => {
-  //       draft.currentTab = pos == 0 ? 1 : 0;
-  //     });
-  //   }
-  // }
-
-  const onSwipeRight = (position:any, event:any) => {
+  const onSwipeRight = () => {
     const pos = state.currentTab
     setState(draft => {
       draft.currentTab = pos === -1 ? 0 : 1;
     });
   }
 
-  const onSwipeLeft = (position:any, event:any) => {
+  const onSwipeLeft = () => {
     const pos = state.currentTab
     setState(draft => {
       draft.currentTab = pos === 1 ? 0 : -1;
+    });
+  }
+
+  const resetTab = () => {
+    setState(draft => {
+      draft.currentTab = 0;
     });
   }
 
@@ -111,9 +102,10 @@ export default function FeedsCard(props:any) {
         state.currentTab == 1 &&
         <Button
           variant="contained" 
-          className={classes.button}
+          className={`${classes.button} animated fadeIn`}
           startIcon={<DeleteIcon />}
-          style={{background: 'red', color: '#fff'}}
+          style={{background: 'red'}}
+          onClick={resetTab}
         >
           delete
         </Button>
@@ -127,9 +119,10 @@ export default function FeedsCard(props:any) {
         state.currentTab == -1 &&
         <Button
           variant="contained" 
-          className={classes.button}
+          className={`${classes.button} animated fadeIn`}
           startIcon={<EditIcon />}
-          style={{background: 'green', color: '#fff'}}
+          style={{background: 'green'}}
+          onClick={resetTab}
         >
           edit
         </Button>
