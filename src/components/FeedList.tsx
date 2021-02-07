@@ -40,7 +40,6 @@ const FeedList = () => {
   const loadProducts = async()=>{
     try{
       const res = await getFeeds(state.token)
-      console.log(res)
       let tempData = [...state.list,...res.messages]
       setState(draft => {
         draft.list = tempData;
