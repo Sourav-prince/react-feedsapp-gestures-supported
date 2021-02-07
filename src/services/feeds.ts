@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-const baseUrl = 'http://message-list.appspot.com/messages'
+const baseUrl = 'https://message-list.appspot.com/messages'
 
 const getFeeds = async(token:string = '') => {
   let url = ''
