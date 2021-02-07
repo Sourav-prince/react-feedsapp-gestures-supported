@@ -32,6 +32,7 @@ const useStyles = makeStyles((theme: Theme) =>
 
 const FeedList = () => {
 
+  const classes = useStyles();
   const [state, setState] = useImmer({
     list:[] as any,
     token: ''
@@ -53,7 +54,16 @@ const FeedList = () => {
     // eslint-disable-next-line
   },[])
 
-  const classes = useStyles();
+  const loading = (
+    <Grid item xs={12}>
+      <div className={classes.loadingText}>Loading...</div>
+    </Grid>
+  )
+
+  const loadingDummy = (
+    <Grid item xs={12}/>
+  )
+
 
   return (
     <Container maxWidth="xs" >
@@ -63,9 +73,10 @@ const FeedList = () => {
           dataLength={state.list.length}
           next={loadProducts}
           hasMore={true}
-          loader={<div className={classes.loadingText}>Loading...</div>}
+          loader={loading}
         >
           <Grid container spacing={3} className={classes.listContainer}>
+            {!state.list.length && loadingDummy}
             {state.list.map((val:any,index:number)=>(
               <Grid key={index} item xs={12}>
                 <FeedCard {...val}/>
